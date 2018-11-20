@@ -34,14 +34,14 @@ if [ -z "$BUILD_IMAGE" ]; then
     exit 5
 fi
 
+set -x # debug
+
 oc login ${OPENSHIFT_SERVER} -u ${OPENSHIFT_USER} -p ${OPENSHIFT_PASSWORD} > /dev/null
 
 if [[ "$?" != "0" ]]; then
     (>&2 echo "ERROR Could not oc login. Exiting")
     exit 1
 fi
-
-set -x # debug
 
 # what is the OPENSHIFT_BUILD_REFERENCE in the Config.Env of the imate stream tag `:latest`?
 OPENSHIFT_BUILD_REFERENCE=$(oc get istag $BUILD_IMAGE:latest -o json -n $BUILD_NAMESPACE  | jq -r ".image.dockerImageMetadata.Config.Env" | jq '.[] | select(test("OPENSHIFT_BUILD_REFERENCE"))')
