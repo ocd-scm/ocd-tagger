@@ -4,4 +4,4 @@ This folder has the s2i/bin/assemble scripts that that will tag an image with th
 
 ![alt text][ocd-build-components]
 
-[ocd-build-components]: https://raw.githubusercontent.com/ocd-scm/ocd-meta/master/imgs/ocd-build-components.png "OCD Builder Components"
+[ocd-build-components]: https://github.com/ocd-scm/ocd-meta/blob/master/imgs/ocd-tagger.png?raw=true "OCD Builder Components"
