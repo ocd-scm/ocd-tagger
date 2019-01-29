@@ -25,16 +25,16 @@ if [ -z "$BUILD_IMAGE" ]; then
     exit 3
 fi
 
-if [ ! -f "/var/run/secrets/kubernetes.io/serviceaccount/token" ]; then
-    (>&2 echo "ERROR No service account token found at /var/run/secrets/kubernetes.io/serviceaccount/token. Exiting")
+if [ ! -f "/sa-secret-volume/token" ]; then
+    (>&2 echo "ERROR No service account token found at /sa-secret-volume/token. Exiting")
     exit 4
 fi
 
 # do login
 oc login ${INSECURE_SKIP_TLS_VERIFY} \
     ${OPENSHIFT_SERVER} \
-    --certificate-authority='/var/run/secrets/kubernetes.io/serviceaccount/ca.crt' \
-    --token="$(< /var/run/secrets/kubernetes.io/serviceaccount/token)"
+    --certificate-authority='/sa-secret-volume/ca.crt' \
+    --token="$(< /sa-secret-volume/token)"
 
 if [[ "$?" != "0" ]]; then
     (>&2 echo "ERROR Could not oc login using token at sa-secret-volume/token. Exiting")
