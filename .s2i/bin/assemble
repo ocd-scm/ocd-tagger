@@ -57,6 +57,8 @@ else
     export MESSAGE="Failed to created $BUILD_IMAGE:$OPENSHIFT_BUILD_REFERENCE"
 fi
 
+echo "$MESSAGE"
+
 if [ ! -z "$CHATBOT_NOTIFY" ]; then
     echo "$CHATBOT_NOTIFY" | base64 -d | /bin/bash
 fi
