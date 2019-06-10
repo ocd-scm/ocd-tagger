@@ -42,7 +42,7 @@ if [[ "$?" != "0" ]]; then
 fi
 
 # what is the OPENSHIFT_BUILD_REFERENCE in the Config.Env of the imate stream tag `:latest`?
-OPENSHIFT_BUILD_REFERENCE=$(oc get istag "$BUILD_IMAGE:latest" -o json -n "$BUILD_NAMESPACE"  | jq -r ".image.dockerImageMetadata.Config.Env" | jq '.[] | select(test("OPENSHIFT_BUILD_REFERENCE"))')
+OPENSHIFT_BUILD_REFERENCE=$(oc get imagestreamtags "$BUILD_IMAGE:latest" -o json -n "$BUILD_NAMESPACE"  | jq -r ".image.dockerImageMetadata.Config.Env" | jq '.[] | select(test("OPENSHIFT_BUILD_REFERENCE"))')
 
 # formatted as '"OPENSHIFT_BUILD_REFERENCE=v0.0.1"' so we need to extract the raw tag name
 OPENSHIFT_BUILD_REFERENCE=$(echo "$OPENSHIFT_BUILD_REFERENCE" | awk -F'=' '{print substr($2, 1, length($2)-1)}')
